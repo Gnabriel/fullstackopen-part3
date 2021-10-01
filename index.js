@@ -15,7 +15,7 @@ app.get("/api/persons", (request, response) => {
 });
 
 app.get("/api/info", (request, response) => {
-  dateTime = new Date();
+  const dateTime = new Date();
   response.send(`
     <p>Phonebook has info for people</p>
     <p>${dateTime}</p>
@@ -36,9 +36,9 @@ app.get("/api/persons/:id", (request, response, next) => {
 });
 
 // Delete specific resource with ID.
-app.delete("/api/persons/:id", (request, response) => {
+app.delete("/api/persons/:id", (request, response, next) => {
   Person.findByIdAndRemove(request.params.id)
-    .then((result) => {
+    .then(() => {
       response.status(204).end();
     })
     .catch((error) => next(error));
